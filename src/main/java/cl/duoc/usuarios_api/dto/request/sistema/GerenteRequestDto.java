@@ -2,6 +2,7 @@ package cl.duoc.usuarios_api.dto.request.sistema;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -41,5 +42,11 @@ public class GerenteRequestDto {
 
     @Past(message = "La fecha de nacimiento debe ser una fecha pasada")
     private LocalDate fechaNacimiento;
+
+    @NotBlank
+    private String sucursal;
+
+    @NotBlank
+    private String turno;
 
 }

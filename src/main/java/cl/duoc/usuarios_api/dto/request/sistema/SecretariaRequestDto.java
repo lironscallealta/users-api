@@ -42,4 +42,10 @@ public class SecretariaRequestDto {
     @Past(message = "La fecha de nacimiento debe ser una fecha pasada")
     private LocalDate fechaNacimiento;
 
+    @NotBlank
+    private String sucursal; // sede que administra
+
+    @NotBlank
+    private String turno; // mañana, tarde, completo */
+
 }

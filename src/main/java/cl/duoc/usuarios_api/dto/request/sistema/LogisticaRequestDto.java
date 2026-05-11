@@ -42,4 +42,19 @@ public class LogisticaRequestDto {
     @Past(message = "La fecha de nacimiento debe ser una fecha pasada")
     private LocalDate fechaNacimiento;
 
+    @NotBlank
+    private String zonaAsignadaDireccion;
+
+    @NotBlank
+    private String bodegaAsignadaDireccion;
+
+    @NotBlank
+    private String vehiculoAsignadoPatente;
+
+    @NotBlank
+    private String licenciaConducir;
+
+    @NotBlank
+    private String turno;
+
 }

@@ -2,6 +2,7 @@ package cl.duoc.usuarios_api.dto.request.sistema;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -15,6 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AbastecimientoComprasRequestDto {
+
+    // este podria ir sin usuario entonces quizas buscar otra forma de manejarlo
+    // seria como un registro de proveedores
+    // por ejemplo esto podria no existir... este formulario podria ir directo a la
+    // empresa.
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 1, max = 50, message = "El nombre debe tener entre 1 y 50 caracteres")
@@ -41,5 +47,25 @@ public class AbastecimientoComprasRequestDto {
 
     @Past(message = "La fecha de nacimiento debe ser una fecha pasada")
     private LocalDate fechaNacimiento;
+
+    // Abastecimiento
+
+    @NotBlank
+    private String razonSocial; // nombre legal de la empresa proveedora
+
+    @NotBlank
+    private String rutEmpresa;
+
+    @NotBlank
+    private String dvEmpresa;
+
+    @NotBlank
+    private String giro; // rubro del proveedor
+
+    @NotBlank
+    private String tipoProducto; // categoría: medicamentos, alimentos, insumos, etc.
+
+    @NotBlank
+    private String contactoComercial; // persona de contacto en la empresa
 
 }

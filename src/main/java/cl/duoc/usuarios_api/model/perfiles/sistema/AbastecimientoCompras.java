@@ -29,19 +29,13 @@ public class AbastecimientoCompras {
     @Column(length = 100)
     private String giro; // rubro del proveedor
 
-    @Column(name = "producto_id", nullable = false)
-    private Long productoId;
-
     @Column(name = "tipo_producto", length = 100)
     private String tipoProducto; // categoría: medicamentos, alimentos, insumos, etc.
-
-    @Column(name = "nombre_producto", length = 200)
-    private String nombreProducto; // producto que provee
 
     @Column(name = "contacto_comercial", length = 100)
     private String contactoComercial; // persona de contacto en la empresa
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 }
