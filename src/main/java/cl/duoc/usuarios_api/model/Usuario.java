@@ -3,6 +3,12 @@ package cl.duoc.usuarios_api.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,17 +16,42 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 50)
     private String nombre;
+
+    @Column(nullable = false, length = 50)
     private String apellido;
-    private String run;
+
+    @Column(length = 20)
+    private String rut;
+
+    @Column(length = 1)
     private String dv;
+
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
-    private String telefono;
+
+    @Column(length = 20)
+    private String telefonoCelular;
+
+    @Column(name = "fecha_nacimiento_usuario", nullable = false)
     private LocalDate fechaNacimiento;
+
+    @Column(nullable = false, length = 50)
     private String rol; // "VETERINARIO", "SECRETARIA", etc.
-    private boolean activo; // si el usuario está habilitado
+
+    @Column(nullable = false)
+    private boolean activo; // si el usuario está habilitado o no (despues ver forma si pasa mucho tiempo de
+                            // desactivarlo o algo asi)
+
+    @Column(name = "fecha_creacion_usuario", nullable = false)
     private LocalDateTime fechaCreacion;
 }
