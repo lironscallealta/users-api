@@ -1,5 +1,6 @@
 package cl.duoc.usuarios_api.model.perfiles.clientes;
 
+import cl.duoc.usuarios_api.model.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,16 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "usuario_id", nullable = false)
-    private Long usuarioId;
+    @Column(nullable = false, length = 200)
+    private String direccion;
 
+    @Column(length = 100)
+    private String comuna;
+
+    @Column(length = 100)
+    private String region;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

@@ -17,10 +17,6 @@ public class AbastecimientoCompras {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @Column(name = "razon_social", nullable = false, length = 200)
     private String razonSocial; // nombre legal de la empresa proveedora
 
@@ -44,4 +40,8 @@ public class AbastecimientoCompras {
 
     @Column(name = "contacto_comercial", length = 100)
     private String contactoComercial; // persona de contacto en la empresa
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

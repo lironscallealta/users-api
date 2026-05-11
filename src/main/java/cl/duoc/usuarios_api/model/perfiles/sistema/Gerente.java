@@ -17,13 +17,13 @@ public class Gerente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @Column(length = 100)
     private String sucursal;
 
     @Column(length = 50)
     private String turno; // mañana, tarde, completo
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

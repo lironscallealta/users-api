@@ -17,10 +17,10 @@ public class Veterinario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "horario_atencion", length = 100)
+    private String horarioAtencion; // ej: "Lunes a Viernes 09:00-18:00"
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
-
-    @Column(name = "horario_atencion", length = 100)
-    private String horarioAtencion; // ej: "Lunes a Viernes 09:00-18:00"
 }

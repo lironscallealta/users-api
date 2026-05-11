@@ -17,10 +17,6 @@ public class ClienteMayorista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @Column(name = "razon_social", nullable = false, length = 200)
     private String razonSocial; // nombre legal de la empresa
 
@@ -32,4 +28,8 @@ public class ClienteMayorista {
 
     @Column(name = "dv_empresa", nullable = false, length = 1)
     private String dvEmpresa;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

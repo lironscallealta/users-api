@@ -17,10 +17,6 @@ public class Logistica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @Column(name = "zona_asignada_direccion", nullable = false, length = 100)
     private String zonaAsignadaDireccion; // zona geográfica de despacho
 
@@ -35,4 +31,8 @@ public class Logistica {
 
     @Column(length = 50)
     private String turno; // mañana, tarde, completo
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }
