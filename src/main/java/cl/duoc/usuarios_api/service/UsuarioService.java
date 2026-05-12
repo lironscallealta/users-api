@@ -26,7 +26,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
 
-    public UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
+    private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
 
         // La forma que encontre para sacar años, lo dejo configurado
         int edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now()).getYears();
@@ -94,6 +94,8 @@ public class UsuarioService {
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
         return Optional.of(response);
     }
+
+    // consultarUsuariosId ese me falta
 
     public List<UsuarioResponseDto> consultarUsuarios() {
 
@@ -176,14 +178,3 @@ public class UsuarioService {
     }
 
 }
-
-/*
- * EJ
- * registrarUsario ------
- * consultarUsuarioId ------
- * consultarUsuarios -----
- * consultarUsuariosconStream
- * actualizarUsaurio -------
- * eliminarUsuarioId
- * eliminarUsuarios
- */
