@@ -1,5 +1,6 @@
 package cl.duoc.usuarios_api.dto.response;
 
+import cl.duoc.usuarios_api.model.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
