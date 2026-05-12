@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,12 +46,13 @@ public class Usuario {
     @Column(name = "fecha_nacimiento_usuario", nullable = false)
     private LocalDate fechaNacimiento;
 
+    @ManyToOne
+    @JoinColumn(name = "rol_id", nullable = false)
     @Column(nullable = false, length = 50)
-    private String rol; // "VETERINARIO", "SECRETARIA", etc.
+    private Rol rol;
 
     @Column(nullable = false)
-    private boolean activo; // si el usuario está habilitado o no (despues ver forma si pasa mucho tiempo de
-                            // desactivarlo o algo asi)
+    private boolean activo;
 
     @Column(name = "fecha_creacion_usuario", nullable = false)
     private LocalDateTime fechaCreacion;
