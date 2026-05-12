@@ -31,7 +31,7 @@ public class Usuario {
     @Column(nullable = false, length = 50)
     private String apellido;
 
-    @Column(length = 20)
+    @Column(length = 22)
     private String rut;
 
     @Column(length = 1)
@@ -48,7 +48,6 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "rol_id", nullable = false)
-    @Column(nullable = false, length = 50)
     private Rol rol;
 
     @Column(nullable = false)
