@@ -130,7 +130,20 @@ public class UsuarioService {
 
     }
 
-    #public UsuarioResponseDto eliminarUsuarioId
+    public Optional<UsuarioResponseDto> eliminarUsuarioId(Long usuarioId) {
+
+        // Cambiarlo a la forma de .OrElseThrow estaba probando esta forma para no
+        // olvidarla
+
+        Optional<Usuario> usuarioEliminar = usuarioRepository.findById(usuarioId);
+        if (usuarioEliminar.isEmpty()) {
+            return Optional.empty();
+        }
+        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioEliminar.get());
+        usuarioRepository.delete(usuarioEliminar.get());
+        return Optional.of(response);
+
+    }
 
 }
 
