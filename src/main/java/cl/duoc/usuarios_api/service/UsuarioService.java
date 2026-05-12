@@ -109,7 +109,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioResponseDto actualizarUsuarios(Long usuarioId, UsuarioRequestDto usuarioRequest) {
+    public Optional<UsuarioResponseDto> actualizarUsuario(Long usuarioId, UsuarioRequestDto usuarioRequest) {
 
         Usuario usuarioModel = usuarioRepository.findById(usuarioId).orElseThrow();
         Rol rolModel = rolRepository.findById(usuarioRequest.getRol()).orElseThrow();
@@ -123,11 +123,14 @@ public class UsuarioService {
         usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         usuarioModel.setRol(rolModel);
         usuarioModel.setActivo(usuarioRequest.isActivo());
-        usuarioModel.setFechaCreacion(usuarioModel.getFechaCreacion());
+        usuarioModel.setFechaActualizacion(LocalDateTime.now());
+        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
 
-        return null;
+        return Optional.of(response);
 
     }
+
+    #public UsuarioResponseDto eliminarUsuarioId
 
 }
 
