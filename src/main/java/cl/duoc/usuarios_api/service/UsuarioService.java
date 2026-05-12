@@ -3,8 +3,12 @@ package cl.duoc.usuarios_api.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
 import cl.duoc.usuarios_api.dto.response.RolResponseDto;
@@ -84,4 +88,56 @@ public class UsuarioService {
         return response;
     }
 
+    public Optional<UsuarioResponseDto> consultarUsuarioId(Long usuarioId) {
+
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow();
+        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
+        return Optional.of(response);
+    }
+
+    public List<UsuarioResponseDto> consultarUsuarios() {
+
+        List<UsuarioResponseDto> listaUsuarios = new ArrayList<UsuarioResponseDto>();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+
+        for (Usuario usuario : usuarios) {
+
+            listaUsuarios.add(mapToUsuarioToUsuarioResponse(usuario));
+        }
+
+        return listaUsuarios;
+    }
+
+    @Transactional
+    public UsuarioResponseDto actualizarUsuarios(Long usuarioId, UsuarioRequestDto usuarioRequest) {
+
+        Usuario usuarioModel = usuarioRepository.findById(usuarioId).orElseThrow();
+        Rol rolModel = rolRepository.findById(usuarioRequest.getRol()).orElseThrow();
+
+        usuarioModel.setNombre(usuarioRequest.getNombre());
+        usuarioModel.setApellido(usuarioRequest.getApellido());
+        usuarioModel.setRut(usuarioRequest.getRut());
+        usuarioModel.setDv(usuarioRequest.getDv());
+        usuarioModel.setEmail(usuarioRequest.getEmail());
+        usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
+        usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
+        usuarioModel.setRol(rolModel);
+        usuarioModel.setActivo(usuarioRequest.isActivo());
+        usuarioModel.setFechaCreacion(usuarioModel.getFechaCreacion());
+
+        return null;
+
+    }
+
 }
+
+/*
+ * EJ
+ * registrarUsario ------
+ * consultarUsuarioId ------
+ * consultarUsuarios -----
+ * consultarUsuariosconStream
+ * actualizarUsaurio -------
+ * eliminarUsuarioId
+ * eliminarUsuarios
+ */

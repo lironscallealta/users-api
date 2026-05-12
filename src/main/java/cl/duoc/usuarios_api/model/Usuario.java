@@ -55,4 +55,7 @@ public class Usuario {
 
     @Column(name = "fecha_creacion_usuario", nullable = false)
     private LocalDateTime fechaCreacion;
+
+    @Column(name = "fecha_actualizacion_usuario")
+    private LocalDateTime fechaActualizacion;
 }
