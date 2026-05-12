@@ -130,6 +130,9 @@ public class UsuarioService {
 
     }
 
+    // Eliminacion
+
+    @Transactional
     public Optional<UsuarioResponseDto> eliminarUsuarioId(Long usuarioId) {
 
         // Cambiarlo a la forma de .OrElseThrow estaba probando esta forma para no
@@ -142,6 +145,33 @@ public class UsuarioService {
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioEliminar.get());
         usuarioRepository.delete(usuarioEliminar.get());
         return Optional.of(response);
+
+    }
+
+    @Transactional
+    public List<UsuarioResponseDto> eliminarUsauriosId(List<Long> ids) {
+
+        List<UsuarioResponseDto> usuariosEliminarResponse = new ArrayList<>();
+        List<Usuario> usuariosEliminar = usuarioRepository.findAllById(ids);
+        for (Usuario usuario : usuariosEliminar) {
+            usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
+
+        }
+        usuarioRepository.deleteAllById(ids);
+        return usuariosEliminarResponse;
+
+    }
+
+    @Transactional
+    public List<UsuarioResponseDto> eliminarUsuarios() {
+        List<Usuario> usuariosEliminar = usuarioRepository.findAll();
+        List<UsuarioResponseDto> usuariosEliminarResponse = new ArrayList<>();
+        for (Usuario usuario : usuariosEliminar) {
+            usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
+
+        }
+        usuarioRepository.deleteAll();
+        return usuariosEliminarResponse;
 
     }
 
