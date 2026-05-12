@@ -1,6 +1,5 @@
 package cl.duoc.usuarios_api.dto.response;
 
-import cl.duoc.usuarios_api.model.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,14 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioResponse {
+public class UsuarioResponseDto {
 
     private Long id;
     private String nombreCompleto;
     private String rut;
     private String email;
+    private int edad;
     private String telefonoCelular;
-    private RolResponse rol;
+    private RolResponseDto rol;
     private boolean activo;
 
 }

@@ -1,10 +1,17 @@
 package cl.duoc.usuarios_api.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+
 import org.springframework.stereotype.Service;
 
-import cl.duoc.usuarios_api.dto.response.RolResponse;
-import cl.duoc.usuarios_api.dto.response.UsuarioResponse;
+import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
+import cl.duoc.usuarios_api.dto.response.RolResponseDto;
+import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
+import cl.duoc.usuarios_api.model.Rol;
 import cl.duoc.usuarios_api.model.Usuario;
+import cl.duoc.usuarios_api.repository.RolRepository;
 import cl.duoc.usuarios_api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -13,16 +20,23 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
 
-    public UsuarioResponse mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
+    public UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
 
-        UsuarioResponse usuarioResponse = new UsuarioResponse();
-        RolResponse rolResponse = new RolResponse();
+        // La forma que encontre para sacar años, lo dejo configurado
+        int edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now()).getYears();
 
+        UsuarioResponseDto usuarioResponse = new UsuarioResponseDto();
+        RolResponseDto rolResponse = new RolResponseDto();
+        // usuario
+        usuarioResponse.setId(usuarioModel.getId());
         usuarioResponse.setNombreCompleto(usuarioModel.getNombre() + " " + usuarioModel.getApellido());
         usuarioResponse.setRut(usuarioModel.getRut() + "-" + usuarioModel.getDv());
+        usuarioResponse.setEdad(edadConfigurada);
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
+        usuarioResponse.setActivo(true);
         // setando rol
         rolResponse.setId(usuarioModel.getRol().getId());
         rolResponse.setNombreRol(usuarioResponse.getRol().getNombreRol());
@@ -31,19 +45,9 @@ public class UsuarioService {
         usuarioResponse.setRol(rolResponse);
 
         return usuarioResponse;
-        /*
-         * response
-         * private Long id;
-         * private String nombreCompleto;
-         * private String rut;
-         * private String email;
-         * private String telefonoCelular;
-         * private RolResponse rol;
-         * private boolean activo;
-         */
 
         /*
-         * modelo
+         * modelo como guia
          * private Long id;
          * private String nombre;
          * private String apellido;
@@ -57,6 +61,27 @@ public class UsuarioService {
          * private LocalDateTime fechaCreacion;
          */
 
+    }
+
+    public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
+
+        Usuario usuarioModel = new Usuario();
+        Rol rol = rolRepository.findById(usuarioRequest.getRol()).orElseThrow();
+
+        usuarioModel.setNombre(usuarioRequest.getNombre());
+        usuarioModel.setApellido(usuarioRequest.getApellido());
+        usuarioModel.setRut(usuarioRequest.getRut());
+        usuarioModel.setDv(usuarioRequest.getDv());
+        usuarioModel.setEmail(usuarioRequest.getEmail());
+        usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
+        usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
+        usuarioModel.setRol(rol);
+        usuarioModel.setActivo(usuarioRequest.isActivo());
+        usuarioModel.setFechaCreacion(LocalDateTime.now());
+
+        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
+
+        return response;
     }
 
 }

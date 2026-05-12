@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioRequest {
+public class UsuarioRequestDto {
 
     @NotBlank
     private String nombre;
