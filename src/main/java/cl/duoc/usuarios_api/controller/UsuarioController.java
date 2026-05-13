@@ -1,7 +1,19 @@
+/*
+ * Copyright © 2026 DuocUC FullStack 1
+ * Eduardo Bray
+ * Rodrigo Callealta
+ * Fernando Villalobos
+ */
 package cl.duoc.usuarios_api.controller;
 
+import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
+import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
+import cl.duoc.usuarios_api.service.UsuarioService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
-import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
-import cl.duoc.usuarios_api.service.UsuarioService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/v1/usuarios")
@@ -31,7 +37,6 @@ public class UsuarioController {
         UsuarioResponseDto crearUsuario = usuarioService.crearUsuario(usuarioRequest);
 
         return ResponseEntity.ok(crearUsuario);
-
     }
 
     @GetMapping("/{id}")
@@ -46,7 +51,6 @@ public class UsuarioController {
 
         List<UsuarioResponseDto> consultarusuariosIds = usuarioService.consultarUsuariosIds(ids);
         return ResponseEntity.ok(consultarusuariosIds);
-
     }
 
     @GetMapping
@@ -57,8 +61,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<UsuarioResponseDto>> actualizarUsuario(@PathVariable Long id,
-            @RequestBody UsuarioRequestDto usuarioRequest) {
+    public ResponseEntity<Optional<UsuarioResponseDto>> actualizarUsuario(
+            @PathVariable Long id, @RequestBody UsuarioRequestDto usuarioRequest) {
 
         Optional<UsuarioResponseDto> actualizarUsuario = usuarioService.actualizarUsuario(id, usuarioRequest);
 
@@ -87,5 +91,4 @@ public class UsuarioController {
         List<UsuarioResponseDto> eliminarUsuarios = usuarioService.eliminarUsuarios();
         return ResponseEntity.ok(eliminarUsuarios);
     }
-
 }

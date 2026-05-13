@@ -1,3 +1,9 @@
+/*
+ * Copyright © 2026 DuocUC FullStack 1
+ * Eduardo Bray
+ * Rodrigo Callealta
+ * Fernando Villalobos
+ */
 package cl.duoc.usuarios_api.model;
 
 import jakarta.persistence.Column;
@@ -25,5 +31,4 @@ public class Rol {
     private String nombreRol;
 
     private String descripcion;
-
 }

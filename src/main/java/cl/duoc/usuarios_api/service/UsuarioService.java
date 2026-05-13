@@ -1,14 +1,10 @@
+/*
+ * Copyright © 2026 DuocUC FullStack 1
+ * Eduardo Bray
+ * Rodrigo Callealta
+ * Fernando Villalobos
+ */
 package cl.duoc.usuarios_api.service;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
 import cl.duoc.usuarios_api.dto.response.RolResponseDto;
@@ -17,7 +13,15 @@ import cl.duoc.usuarios_api.model.Rol;
 import cl.duoc.usuarios_api.model.Usuario;
 import cl.duoc.usuarios_api.repository.RolRepository;
 import cl.duoc.usuarios_api.repository.UsuarioRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +33,8 @@ public class UsuarioService {
     private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
 
         // La forma que encontre para sacar años, lo dejo configurado
-        int edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now()).getYears();
+        int edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now())
+                .getYears();
 
         UsuarioResponseDto usuarioResponse = new UsuarioResponseDto();
         RolResponseDto rolResponse = new RolResponseDto();
@@ -49,7 +54,6 @@ public class UsuarioService {
         usuarioResponse.setRol(rolResponse);
 
         return usuarioResponse;
-
     }
 
     public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
@@ -92,7 +96,6 @@ public class UsuarioService {
             listaResponseIds.add(response);
         }
         return listaResponseIds;
-
     }
 
     // --
@@ -129,7 +132,6 @@ public class UsuarioService {
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
 
         return Optional.of(response);
-
     }
 
     // Eliminacion
@@ -146,7 +148,6 @@ public class UsuarioService {
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioEliminar.get());
         usuarioRepository.delete(usuarioEliminar.get());
         return Optional.of(response);
-
     }
 
     @Transactional
@@ -156,11 +157,9 @@ public class UsuarioService {
         List<Usuario> usuariosEliminar = usuarioRepository.findAllById(ids);
         for (Usuario usuario : usuariosEliminar) {
             usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
-
         }
         usuarioRepository.deleteAllById(ids);
         return usuariosEliminarResponse;
-
     }
 
     @Transactional
@@ -169,11 +168,8 @@ public class UsuarioService {
         List<UsuarioResponseDto> usuariosEliminarResponse = new ArrayList<>();
         for (Usuario usuario : usuariosEliminar) {
             usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
-
         }
         usuarioRepository.deleteAll();
         return usuariosEliminarResponse;
-
     }
-
 }
