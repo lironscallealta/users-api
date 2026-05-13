@@ -50,21 +50,6 @@ public class UsuarioService {
 
         return usuarioResponse;
 
-        /*
-         * modelo como guia
-         * private Long id;
-         * private String nombre;
-         * private String apellido;
-         * private String rut;
-         * private String dv;
-         * private string email
-         * private String telefonoCelular;
-         * private LocalDate fechaNacimiento;
-         * private Rol rol;
-         * private boolean activo;
-         * private LocalDateTime fechaCreacion;
-         */
-
     }
 
     public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
@@ -88,6 +73,7 @@ public class UsuarioService {
         return response;
     }
 
+    // --
     public Optional<UsuarioResponseDto> consultarUsuarioId(Long usuarioId) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow();
@@ -95,8 +81,21 @@ public class UsuarioService {
         return Optional.of(response);
     }
 
-    // consultarUsuariosId ese me falta
+    // --
+    public List<UsuarioResponseDto> consultarUsuariosIds(List<Long> UsuariosId) {
 
+        List<UsuarioResponseDto> listaResponseIds = new ArrayList<>();
+        List<Usuario> usuarios = usuarioRepository.findAllById(UsuariosId);
+
+        for (Usuario usuario : usuarios) {
+            UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
+            listaResponseIds.add(response);
+        }
+        return listaResponseIds;
+
+    }
+
+    // --
     public List<UsuarioResponseDto> consultarUsuarios() {
 
         List<UsuarioResponseDto> listaUsuarios = new ArrayList<UsuarioResponseDto>();
@@ -110,6 +109,7 @@ public class UsuarioService {
         return listaUsuarios;
     }
 
+    // --
     @Transactional
     public Optional<UsuarioResponseDto> actualizarUsuario(Long usuarioId, UsuarioRequestDto usuarioRequest) {
 
@@ -133,7 +133,6 @@ public class UsuarioService {
     }
 
     // Eliminacion
-
     @Transactional
     public Optional<UsuarioResponseDto> eliminarUsuarioId(Long usuarioId) {
 
