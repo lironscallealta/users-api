@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.duoc</groupId>
-	<artifactId>usuarios-api</artifactId>
+	<artifactId>users-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>usuarios-api</name>
+	<name>users-api</name>
 	<description />
 	<url />
 	<licenses>

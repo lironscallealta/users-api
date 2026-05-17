@@ -1,4 +1,4 @@
-# Usuarios-API Dependencies
+# Users-API Dependencies
 
 * **Lombok**
 * **Spring Web**
