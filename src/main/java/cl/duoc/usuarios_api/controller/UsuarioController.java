@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/usuarios")
+@RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 public class UsuarioController {
 
@@ -33,62 +34,45 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> crearUsuario(@Valid @RequestBody UsuarioRequestDto usuarioRequest) {
-
-        UsuarioResponseDto crearUsuario = usuarioService.crearUsuario(usuarioRequest);
-
-        return ResponseEntity.ok(crearUsuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crearUsuario(usuarioRequest));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<UsuarioResponseDto>> consultarUsuarioId(@PathVariable Long id) {
-
-        Optional<UsuarioResponseDto> consultarUsuarioId = usuarioService.consultarUsuarioId(id);
-        return ResponseEntity.ok(consultarUsuarioId);
+        return ResponseEntity.ok(usuarioService.consultarUsuarioId(id));
     }
 
     @GetMapping("/buscar-por-ids")
     public ResponseEntity<List<UsuarioResponseDto>> consultarUsuariosIds(@RequestParam List<Long> ids) {
-
-        List<UsuarioResponseDto> consultarusuariosIds = usuarioService.consultarUsuariosIds(ids);
-        return ResponseEntity.ok(consultarusuariosIds);
+        return ResponseEntity.ok(usuarioService.consultarUsuariosIds(ids));
     }
 
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDto>> consultarUsuarios() {
-
-        List<UsuarioResponseDto> consultarUsuarios = usuarioService.consultarUsuarios();
-        return ResponseEntity.ok(consultarUsuarios);
+        return ResponseEntity.ok(usuarioService.consultarUsuarios());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Optional<UsuarioResponseDto>> actualizarUsuario(
             @PathVariable Long id, @Valid @RequestBody UsuarioRequestDto usuarioRequest) {
-
-        Optional<UsuarioResponseDto> actualizarUsuario = usuarioService.actualizarUsuario(id, usuarioRequest);
-
-        return ResponseEntity.ok(actualizarUsuario);
+        return ResponseEntity.ok(usuarioService.actualizarUsuario(id, usuarioRequest));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Optional<UsuarioResponseDto>> eliminarUsuarioId(@PathVariable Long id) {
-
-        Optional<UsuarioResponseDto> eliminarUsuarioId = usuarioService.eliminarUsuarioId(id);
-
-        return ResponseEntity.ok(eliminarUsuarioId);
+    public ResponseEntity<Void> eliminarUsuarioId(@PathVariable Long id) {
+        usuarioService.eliminarUsuarioId(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/eliminar-por-ids")
-    public ResponseEntity<List<UsuarioResponseDto>> eliminarUsuariosId(@RequestParam List<Long> ids) {
-
-        List<UsuarioResponseDto> eliminarUsauriosIds = usuarioService.eliminarUsauriosId(ids);
-
-        return ResponseEntity.ok(eliminarUsauriosIds);
+    public ResponseEntity<Void> eliminarUsuariosIds(@RequestParam List<Long> ids) {
+        usuarioService.eliminarUsuariosIds(ids);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<List<UsuarioResponseDto>> eliminarUsuarios() {
-
-        List<UsuarioResponseDto> eliminarUsuarios = usuarioService.eliminarUsuarios();
-        return ResponseEntity.ok(eliminarUsuarios);
+    public ResponseEntity<Void> eliminarUsuarios() {
+        usuarioService.eliminarUsuarios();
+        return ResponseEntity.noContent().build();
     }
 }

@@ -136,40 +136,19 @@ public class UsuarioService {
 
     // Eliminacion
     @Transactional
-    public Optional<UsuarioResponseDto> eliminarUsuarioId(Long usuarioId) {
+    public void eliminarUsuarioId(Long usuarioId) {
 
-        // Cambiarlo a la forma de .OrElseThrow estaba probando esta forma para no
-        // olvidarla
-
-        Optional<Usuario> usuarioEliminar = usuarioRepository.findById(usuarioId);
-        if (usuarioEliminar.isEmpty()) {
-            return Optional.empty();
-        }
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioEliminar.get());
-        usuarioRepository.delete(usuarioEliminar.get());
-        return Optional.of(response);
+        Usuario usuarioEliminar = usuarioRepository.findById(usuarioId).orElseThrow();
+        usuarioRepository.delete(usuarioEliminar);
     }
 
     @Transactional
-    public List<UsuarioResponseDto> eliminarUsauriosId(List<Long> ids) {
-
-        List<UsuarioResponseDto> usuariosEliminarResponse = new ArrayList<>();
-        List<Usuario> usuariosEliminar = usuarioRepository.findAllById(ids);
-        for (Usuario usuario : usuariosEliminar) {
-            usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
-        }
+    public void eliminarUsuariosIds(List<Long> ids) {
         usuarioRepository.deleteAllById(ids);
-        return usuariosEliminarResponse;
     }
 
     @Transactional
-    public List<UsuarioResponseDto> eliminarUsuarios() {
-        List<Usuario> usuariosEliminar = usuarioRepository.findAll();
-        List<UsuarioResponseDto> usuariosEliminarResponse = new ArrayList<>();
-        for (Usuario usuario : usuariosEliminar) {
-            usuariosEliminarResponse.add(mapToUsuarioToUsuarioResponse(usuario));
-        }
+    public void eliminarUsuarios() {
         usuarioRepository.deleteAll();
-        return usuariosEliminarResponse;
     }
 }
