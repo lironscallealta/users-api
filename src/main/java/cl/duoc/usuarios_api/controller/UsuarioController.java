@@ -62,7 +62,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Optional<UsuarioResponseDto>> actualizarUsuario(
-            @PathVariable Long id, @RequestBody UsuarioRequestDto usuarioRequest) {
+            @PathVariable Long id, @Valid @RequestBody UsuarioRequestDto usuarioRequest) {
 
         Optional<UsuarioResponseDto> actualizarUsuario = usuarioService.actualizarUsuario(id, usuarioRequest);
 
