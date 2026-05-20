@@ -9,6 +9,7 @@ package cl.duoc.usuarios_api.service;
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
 import cl.duoc.usuarios_api.dto.response.RolResponseDto;
 import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
+import cl.duoc.usuarios_api.exception.ResourceNotFoundException;
 import cl.duoc.usuarios_api.model.Rol;
 import cl.duoc.usuarios_api.model.Usuario;
 import cl.duoc.usuarios_api.repository.RolRepository;
@@ -59,7 +60,10 @@ public class UsuarioService {
     public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
 
         Usuario usuarioModel = new Usuario();
-        Rol rol = rolRepository.findById(usuarioRequest.getRol()).orElseThrow();
+        Rol rol = rolRepository
+                .findById(usuarioRequest.getRol())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
@@ -77,15 +81,15 @@ public class UsuarioService {
         return response;
     }
 
-    // --
     public Optional<UsuarioResponseDto> consultarUsuarioId(Long usuarioId) {
 
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow();
+        Usuario usuario = usuarioRepository
+                .findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("no se encuentra usuario con id: " + usuarioId));
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
         return Optional.of(response);
     }
 
-    // --
     public List<UsuarioResponseDto> consultarUsuariosIds(List<Long> UsuariosId) {
 
         List<UsuarioResponseDto> listaResponseIds = new ArrayList<>();
@@ -98,7 +102,6 @@ public class UsuarioService {
         return listaResponseIds;
     }
 
-    // --
     public List<UsuarioResponseDto> consultarUsuarios() {
 
         List<UsuarioResponseDto> listaUsuarios = new ArrayList<UsuarioResponseDto>();
@@ -112,12 +115,16 @@ public class UsuarioService {
         return listaUsuarios;
     }
 
-    // --
     @Transactional
     public Optional<UsuarioResponseDto> actualizarUsuario(Long usuarioId, UsuarioRequestDto usuarioRequest) {
 
-        Usuario usuarioModel = usuarioRepository.findById(usuarioId).orElseThrow();
-        Rol rolModel = rolRepository.findById(usuarioRequest.getRol()).orElseThrow();
+        Usuario usuarioModel = usuarioRepository
+                .findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("no existe usuario con id:  " + usuarioId));
+        Rol rolModel = rolRepository
+                .findById(usuarioRequest.getRol())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
@@ -134,11 +141,12 @@ public class UsuarioService {
         return Optional.of(response);
     }
 
-    // Eliminacion
     @Transactional
     public void eliminarUsuarioId(Long usuarioId) {
 
-        Usuario usuarioEliminar = usuarioRepository.findById(usuarioId).orElseThrow();
+        Usuario usuarioEliminar = usuarioRepository
+                .findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("no se puede eliminar usuario con id: " + usuarioId));
         usuarioRepository.delete(usuarioEliminar);
     }
 
