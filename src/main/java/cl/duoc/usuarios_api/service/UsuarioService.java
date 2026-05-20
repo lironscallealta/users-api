@@ -22,11 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -60,6 +62,7 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
+        log.info("Creando usuario: {} {}", usuarioRequest.getNombre(), usuarioRequest.getApellido());
 
         if (usuarioRequest.getNombre() == null || usuarioRequest.getNombre().isBlank()) {
             throw new BadRequestException("El nombre del usuario es requerido y no puede estar vacío.");
