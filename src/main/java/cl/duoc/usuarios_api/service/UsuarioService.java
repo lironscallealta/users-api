@@ -9,6 +9,7 @@ package cl.duoc.usuarios_api.service;
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
 import cl.duoc.usuarios_api.dto.response.RolResponseDto;
 import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
+import cl.duoc.usuarios_api.exception.BadRequestException;
 import cl.duoc.usuarios_api.exception.ResourceNotFoundException;
 import cl.duoc.usuarios_api.model.Rol;
 import cl.duoc.usuarios_api.model.Usuario;
@@ -49,7 +50,7 @@ public class UsuarioService {
         usuarioResponse.setActivo(true);
         // setando rol
         rolResponse.setId(usuarioModel.getRol().getId());
-        rolResponse.setNombreRol(usuarioResponse.getRol().getNombreRol());
+        rolResponse.setNombreRol(usuarioModel.getRol().getNombreRol());
         rolResponse.setDescripcion(usuarioModel.getRol().getDescripcion());
         // Finalizando
         usuarioResponse.setRol(rolResponse);
@@ -57,7 +58,18 @@ public class UsuarioService {
         return usuarioResponse;
     }
 
+    @Transactional
     public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequest) {
+
+        if (usuarioRequest.getNombre() == null || usuarioRequest.getNombre().isBlank()) {
+            throw new BadRequestException("El nombre del usuario es requerido y no puede estar vacío.");
+        }
+        if (usuarioRequest.getApellido() == null || usuarioRequest.getApellido().isBlank()) {
+            throw new BadRequestException("El apellido del usuario es requerido y no puede estar vacío.");
+        }
+        if (usuarioRequest.getEmail() == null || usuarioRequest.getEmail().isBlank()) {
+            throw new BadRequestException("El email del usuario es requerido y no puede estar vacío.");
+        }
 
         Usuario usuarioModel = new Usuario();
         Rol rol = rolRepository
@@ -76,7 +88,8 @@ public class UsuarioService {
         usuarioModel.setActivo(usuarioRequest.isActivo());
         usuarioModel.setFechaCreacion(LocalDateTime.now());
 
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
+        Usuario usuarioGuardado = usuarioRepository.save(usuarioModel);
+        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioGuardado);
 
         return response;
     }
