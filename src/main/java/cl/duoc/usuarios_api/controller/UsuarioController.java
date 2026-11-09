@@ -17,6 +17,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,14 @@ public class UsuarioController {
     @Operation(summary = "Crear usuario", description = "Registra un nuevo usuario en el sistema.")
     public ResponseEntity<UsuarioResponseDto> crearUsuario(@Valid @RequestBody UsuarioRequestDto usuarioRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crearUsuario(usuarioRequest));
+    }
+
+    @GetMapping("/me")
+    @Operation(
+            summary = "Consultar usuario autenticado",
+            description = "Obtiene el usuario correspondiente al email del token JWT.")
+    public ResponseEntity<Optional<UsuarioResponseDto>> consultarUsuarioActual(Authentication authentication) {
+        return ResponseEntity.ok(usuarioService.consultarUsuarioPorEmail(authentication.getName()));
     }
 
     @GetMapping("/{id}")
