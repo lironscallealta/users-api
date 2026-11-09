@@ -179,9 +179,4 @@ public class UsuarioService {
     public void eliminarUsuariosIds(List<Long> ids) {
         usuarioRepository.deleteAllById(ids);
     }
-
-    @Transactional
-    public void eliminarUsuarios() {
-        usuarioRepository.deleteAll();
-    }
 }

@@ -92,11 +92,4 @@ public class UsuarioController {
         usuarioService.eliminarUsuariosIds(ids);
         return ResponseEntity.noContent().build();
     }
-
-    @DeleteMapping
-    @Operation(summary = "Eliminar todos los usuarios", description = "Elimina el total de usuarios registrados.")
-    public ResponseEntity<Void> eliminarUsuarios() {
-        usuarioService.eliminarUsuarios();
-        return ResponseEntity.noContent().build();
-    }
 }
