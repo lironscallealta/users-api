@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioResponseDto {
-
     private Long id;
     private String nombreCompleto;
     private String rut;
@@ -24,17 +23,3 @@ public class UsuarioResponseDto {
     private RolResponseDto rol;
     private boolean activo;
 }
-/*
- * ---------------Datos en bruto------------
- * private Long id;
- * private String nombre;
- * private String apellido;
- * private String rut;
- * private String dv;
- * private String email;
- * private String telefonoCelular;
- * private LocalDate fechaNacimiento;
- * private Rol rol;
- * private boolean activo;
- * private LocalDateTime fechaCreacion;
- */
