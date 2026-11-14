@@ -6,6 +6,7 @@
  */
 package cl.duoc.usuarios_api.dto.response;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class UsuarioResponseDto {
     private Long id;
     private String nombreCompleto;
     private String rut;
+    private LocalDate fechaNacimiento;
     private String email;
     private int edad;
     private String telefonoCelular;

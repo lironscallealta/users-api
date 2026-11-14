@@ -47,6 +47,7 @@ public class UsuarioService {
         usuarioResponse.setNombreCompleto(usuarioModel.getNombre() + " " + usuarioModel.getApellido());
         usuarioResponse.setRut(usuarioModel.getRut() + "-" + usuarioModel.getDv());
         usuarioResponse.setEdad(edadConfigurada);
+        usuarioResponse.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
         usuarioResponse.setActivo(true);
