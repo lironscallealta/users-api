@@ -84,18 +84,18 @@ public class MetadataDto {
         private String type;
 
         @JsonProperty("isSearchable")
-        private boolean isSearchable;
+        private Boolean isSearchable;
 
         @JsonProperty("isHidden")
-        private boolean isHidden;
+        private Boolean isHidden;
 
         @JsonProperty("isReadOnly")
-        private boolean isReadOnly;
+        private Boolean isReadOnly;
 
         private boolean highlight;
 
         @JsonProperty("isState")
-        private boolean isState;
+        private Boolean isState;
     }
 
     // Reference:
