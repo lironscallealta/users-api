@@ -11,14 +11,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByEmail(String email);
 
-    long countByEstadoId(Long estadoId);
-
-    @Query("SELECT u.rol.id AS rolId, COUNT(u) AS total FROM Usuario u WHERE u.estado.id = :estadoId GROUP BY u.rol.id")
-    List<RolCountProjection> countByEstadoIdGroupByRol(@Param("estadoId") Long estadoId);
+    @Query("SELECT u.rol.id AS rolId, COUNT(u) AS total FROM Usuario u GROUP BY u.rol.id")
+    List<RolCountProjection> countGroupByRol();
 }
