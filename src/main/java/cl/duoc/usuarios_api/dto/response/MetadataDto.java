@@ -6,6 +6,7 @@
  */
 package cl.duoc.usuarios_api.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -64,11 +65,14 @@ public class MetadataDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class StateMetadata {
+        private Long id;
         private String key;
         private String label;
+        private String description;
 
         @JsonProperty("isDefault")
-        private boolean isDefault;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean isDefault;
     }
 
     @Data
@@ -110,10 +114,16 @@ public class MetadataDto {
     //   },
     //   action: { key: "accion", label: "Acciones" },
     //   states: [
-    //     { key: "todos", label: "Todos los estados", isDefault: true },
-    //     { key: "activo", label: "Activo" },
-    //     { key: "inactivo", label: "Inactivo" },
-    //     { key: "pendiente", label: "En contratación" },
+    //     {
+    //       id: 0,
+    //       key: "todos",
+    //       label: "Todos los estados",
+    //       description: "Todos los estados",
+    //       isDefault: true,
+    //     },
+    //     { id: 1, key: "activo", label: "Activo", description: "..." },
+    //     { id: 2, key: "inactivo", label: "Inactivo", description: "..." },
+    //     { id: 3, key: "pendiente", label: "En contratación", description: "..." },
     //   ],
     //   columns: [
     //     {

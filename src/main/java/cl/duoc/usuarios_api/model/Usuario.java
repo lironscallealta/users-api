@@ -56,8 +56,9 @@ public class Usuario {
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
-    @Column(nullable = false)
-    private boolean activo;
+    @ManyToOne
+    @JoinColumn(name = "estado_id", nullable = false)
+    private EstadoUsuario estado;
 
     @Column(name = "fecha_creacion_usuario", nullable = false)
     private LocalDateTime fechaCreacion;

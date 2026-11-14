@@ -23,5 +23,5 @@ public class UsuarioResponseDto {
     private int edad;
     private String telefonoCelular;
     private RolResponseDto rol;
-    private boolean activo;
+    private String estado;
 }

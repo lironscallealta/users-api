@@ -11,8 +11,10 @@ import cl.duoc.usuarios_api.dto.response.RolResponseDto;
 import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
 import cl.duoc.usuarios_api.exception.BadRequestException;
 import cl.duoc.usuarios_api.exception.ResourceNotFoundException;
+import cl.duoc.usuarios_api.model.EstadoUsuario;
 import cl.duoc.usuarios_api.model.Rol;
 import cl.duoc.usuarios_api.model.Usuario;
+import cl.duoc.usuarios_api.repository.EstadoUsuarioRepository;
 import cl.duoc.usuarios_api.repository.RolRepository;
 import cl.duoc.usuarios_api.repository.UsuarioRepository;
 import java.time.LocalDate;
@@ -33,6 +35,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
+    private final EstadoUsuarioRepository estadoUsuarioRepository;
 
     private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
 
@@ -50,13 +53,13 @@ public class UsuarioService {
         usuarioResponse.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
-        usuarioResponse.setActivo(true);
         // setando rol
         rolResponse.setId(usuarioModel.getRol().getId());
         rolResponse.setNombreRol(usuarioModel.getRol().getNombreRol());
         rolResponse.setDescripcion(usuarioModel.getRol().getDescripcion());
         // Finalizando
         usuarioResponse.setRol(rolResponse);
+        usuarioResponse.setEstado(usuarioModel.getEstado().getNombre());
 
         return usuarioResponse;
     }
@@ -80,6 +83,10 @@ public class UsuarioService {
                 .findById(usuarioRequest.getRol())
                 .orElseThrow(
                         () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
+        EstadoUsuario estado = estadoUsuarioRepository
+                .findByNombre(usuarioRequest.getEstado())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("El estado " + usuarioRequest.getEstado() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
@@ -89,7 +96,7 @@ public class UsuarioService {
         usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
         usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         usuarioModel.setRol(rol);
-        usuarioModel.setActivo(usuarioRequest.isActivo());
+        usuarioModel.setEstado(estado);
         usuarioModel.setFechaCreacion(LocalDateTime.now());
 
         Usuario usuarioGuardado = usuarioRepository.save(usuarioModel);
@@ -151,6 +158,10 @@ public class UsuarioService {
                 .findById(usuarioRequest.getRol())
                 .orElseThrow(
                         () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
+        EstadoUsuario estadoModel = estadoUsuarioRepository
+                .findByNombre(usuarioRequest.getEstado())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("El estado " + usuarioRequest.getEstado() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
@@ -160,7 +171,7 @@ public class UsuarioService {
         usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
         usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         usuarioModel.setRol(rolModel);
-        usuarioModel.setActivo(usuarioRequest.isActivo());
+        usuarioModel.setEstado(estadoModel);
         usuarioModel.setFechaActualizacion(LocalDateTime.now());
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
 

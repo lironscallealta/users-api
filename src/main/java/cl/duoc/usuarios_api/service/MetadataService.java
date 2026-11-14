@@ -7,11 +7,14 @@
 package cl.duoc.usuarios_api.service;
 
 import cl.duoc.usuarios_api.dto.response.MetadataDto;
+import cl.duoc.usuarios_api.model.EstadoUsuario;
+import cl.duoc.usuarios_api.repository.EstadoUsuarioRepository;
 import cl.duoc.usuarios_api.repository.RolRepository;
-import cl.duoc.usuarios_api.repository.UsuarioRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MetadataService {
 
     private final RolRepository rolRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final EstadoUsuarioRepository estadoUsuarioRepository;
 
     /**
      * Obtiene el metadata de configuraci&oacute;n de la interfaz de usuarios.
@@ -74,19 +77,29 @@ public class MetadataService {
     }
 
     private List<MetadataDto.StateMetadata> obtenerStates() {
-        try {
-            // Intenta extraer la distribuci&oacute;n de estados activo/inactivo desde BD.
-            long activos = usuarioRepository.countByActivoTrue();
-            long inactivos = usuarioRepository.countByActivoFalse();
-            log.debug("Usuarios activos: {}, inactivos: {}", activos, inactivos);
-        } catch (Exception ex) {
-            log.warn("No se pudo extraer estados de usuarios desde BD; se usa referencia. {}", ex.getMessage());
+        List<MetadataDto.StateMetadata> states = new ArrayList<>();
+        states.add(new MetadataDto.StateMetadata(0L, "todos", "Todos los estados", "Todos los estados", Boolean.TRUE));
+
+        List<EstadoUsuario> estados = estadoUsuarioRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        for (EstadoUsuario estado : estados) {
+            states.add(new MetadataDto.StateMetadata(
+                    estado.getId(),
+                    estado.getNombre(),
+                    obtenerLabelEstado(estado.getNombre()),
+                    estado.getDescripcion(),
+                    null));
         }
-        return List.of(
-                new MetadataDto.StateMetadata("todos", "Todos los estados", true),
-                new MetadataDto.StateMetadata("activo", "Activo", false),
-                new MetadataDto.StateMetadata("inactivo", "Inactivo", false),
-                new MetadataDto.StateMetadata("pendiente", "En contratación", false));
+
+        return states;
+    }
+
+    private String obtenerLabelEstado(String nombre) {
+        return switch (nombre) {
+            case "activo" -> "Activo";
+            case "inactivo" -> "Inactivo";
+            case "pendiente" -> "En contratación";
+            default -> nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
+        };
     }
 
     private List<MetadataDto.ColumnMetadata> obtenerColumns() {

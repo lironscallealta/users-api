@@ -48,8 +48,8 @@ public class UsuarioRequestDto {
     @NotNull
     private Long rol;
 
-    @NotNull
-    private boolean activo;
+    @NotBlank
+    private String estado;
 }
 
 /*

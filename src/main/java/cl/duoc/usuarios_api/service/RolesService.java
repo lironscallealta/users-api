@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class RolesService {
 
+    private static final long ESTADO_ACTIVO_ID = 1L;
+
     private final RolRepository rolRepository;
     private final UsuarioRepository usuarioRepository;
 
@@ -32,12 +34,12 @@ public class RolesService {
     public List<RolCategoriaResponseDto> consultarRoles() {
         List<RolCategoriaResponseDto> listaRoles = new ArrayList<>();
 
-        long totalActivos = usuarioRepository.countByActivoTrue();
+        long totalActivos = usuarioRepository.countByEstadoId(ESTADO_ACTIVO_ID);
         listaRoles.add(
                 new RolCategoriaResponseDto(0L, "👥", "Todos los usuarios", "todos", totalActivos, Boolean.TRUE));
 
         Map<Long, Long> cantidadesPorRol = new HashMap<>();
-        for (var conteo : usuarioRepository.countActivosByRol()) {
+        for (var conteo : usuarioRepository.countByEstadoIdGroupByRol(ESTADO_ACTIVO_ID)) {
             cantidadesPorRol.put(conteo.getRolId(), conteo.getTotal());
         }
 
