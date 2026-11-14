@@ -47,6 +47,8 @@ public class UsuarioService {
         RolResponseDto rolResponse = new RolResponseDto();
         // usuario
         usuarioResponse.setId(usuarioModel.getId());
+        usuarioResponse.setNombre(usuarioModel.getNombre());
+        usuarioResponse.setApellido(usuarioModel.getApellido());
         usuarioResponse.setNombreCompleto(usuarioModel.getNombre() + " " + usuarioModel.getApellido());
         usuarioResponse.setRut(usuarioModel.getRut() + "-" + usuarioModel.getDv());
         usuarioResponse.setEdad(edadConfigurada);

@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UsuarioResponseDto {
     private Long id;
+    private String nombre;
+    private String apellido;
     private String nombreCompleto;
     private String rut;
     private LocalDate fechaNacimiento;
