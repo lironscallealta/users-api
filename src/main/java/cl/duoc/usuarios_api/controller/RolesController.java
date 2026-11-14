@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/roles")
+@RequestMapping("/api/v1/users/roles")
 @RequiredArgsConstructor
 @Tag(name = "Roles", description = "Operaciones CRUD del dominio roles.")
 public class RolesController {
