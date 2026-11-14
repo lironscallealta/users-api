@@ -27,11 +27,11 @@ public class MetadataService {
     private final EstadoUsuarioRepository estadoUsuarioRepository;
 
     /**
-     * Obtiene el metadata de configuraci&oacute;n de la interfaz de usuarios.
+     * Obtiene el metadata de configuración de la interfaz de usuarios.
      *
      * <p>Los valores que se pueden extraer de la base de datos se toman de los repositorios y, aquello que no pueda
-     * extraerse (etiquetas, tipos de columna, &iacuteconos, estados predefinidos, etc.), se obtiene del riferimento
-     * est&aacute;tico definido en {@link MetadataDto}.
+     * extraerse (etiquetas, tipos de columna, íconos, estados predefinidos, etc.), se obtiene de la referencia estática
+     * definida en {@link MetadataDto}.
      */
     @Transactional(readOnly = true)
     public MetadataDto obtenerMetadata() {
@@ -103,13 +103,12 @@ public class MetadataService {
     }
 
     private List<MetadataDto.ColumnMetadata> obtenerColumns() {
-        // La configuraci&oacute;n de columnas es metadatos de interfaz; no hay una
-        // tabla de columnas en la base de datos, por lo que se toma del referencia.
+        // La configuración de columnas es metadatos de interfaz; no hay una
+        // tabla de columnas en la base de datos, por lo que se toma de la referencia.
         return List.of(
                 columna("id", "ID", "string", false, true, true, false, false),
                 columna("nombre", "Usuario", "string", true, false, false, true, false),
                 columna("rol", "Rol", "string", true, false, false, false, false),
-                columna("departamento", "Departamento", "string", false, false, false, false, false),
                 columna("email", "Correo", "email", true, false, false, false, false),
                 columna("ultimoLogin", "Último ingreso", "string", false, false, true, false, false),
                 columna("estado", "Estado", "string", false, false, false, false, true));

@@ -148,11 +148,6 @@ public class MetadataDto {
     //       isSearchable: true,
     //     },
     //     {
-    //       key: "departamento",
-    //       label: "Departamento",
-    //       type: "string",
-    //     },
-    //     {
     //       key: "email",
     //       label: "Correo",
     //       type: "email",
