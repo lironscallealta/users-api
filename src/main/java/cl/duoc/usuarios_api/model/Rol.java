@@ -27,8 +27,14 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "nombre_rol", nullable = false, length = 50)
     private String nombreRol;
+
+    @Column(name = "nombre_mostrar", nullable = false, length = 50)
+    private String nombreMostrar;
+
+    @Column(nullable = false, length = 32)
+    private String icon;
 
     private String descripcion;
 }

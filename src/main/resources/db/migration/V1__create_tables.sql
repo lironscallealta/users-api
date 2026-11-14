@@ -2,6 +2,8 @@
 CREATE TABLE roles (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre_rol VARCHAR(50) NOT NULL,
+    nombre_mostrar VARCHAR(50) NOT NULL,
+    icon VARCHAR(32) NOT NULL,
     descripcion VARCHAR(255)
 );
 

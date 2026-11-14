@@ -1,9 +1,9 @@
-INSERT INTO roles (nombre_rol, descripcion) VALUES
-('Administrador', 'Acceso total al sistema, gestión de usuarios, permisos, configuraciones globales y auditoría de todos los módulos.'),
-('Gerente', 'Supervisión general, acceso a reportes de ventas, administración de inventario, gestión de personal y métricas del negocio.'),
-('Empleado', 'Atención al público, procesamiento de ventas en tienda, manejo de caja, recepción y agendamiento de citas médicas.'),
-('Veterinario', 'Gestión de consultas, creación y acceso a historiales clínicos de pacientes, emisión de recetas y registro de diagnósticos.'),
-('Cliente', 'Acceso al portal personal para gestionar el perfil de sus mascotas, revisar historial de compras, recetas y reservar citas.');
+INSERT INTO roles (nombre_rol, nombre_mostrar, icon, descripcion) VALUES
+('Administrador', 'Administradores', '🐕', 'Acceso total al sistema, gestión de usuarios, permisos, configuraciones globales y auditoría de todos los módulos.'),
+('Gerente', 'Gerentes', '🐦', 'Supervisión general, acceso a reportes de ventas, administración de inventario, gestión de personal y métricas del negocio.'),
+('Empleado', 'Empleados', '🐈', 'Atención al público, procesamiento de ventas en tienda, manejo de caja, recepción y agendamiento de citas médicas.'),
+('Veterinario', 'Veterinarios', '🐹', 'Gestión de consultas, creación y acceso a historiales clínicos de pacientes, emisión de recetas y registro de diagnósticos.'),
+('Cliente', 'Clientes', '👤', 'Acceso al portal personal para gestionar el perfil de sus mascotas, revisar historial de compras, recetas y reservar citas.');
 
 INSERT INTO usuarios (nombre, apellido, rut, dv, email, telefono_celular, fecha_nacimiento_usuario, rol_id, activo, fecha_creacion_usuario) VALUES
 ('Alan', 'Brito', '15342123', '1', 'alanbrito@duocuc.cl', '+56912345678', '1980-01-01', 1, TRUE, CURRENT_TIMESTAMP),
