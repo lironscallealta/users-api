@@ -34,18 +34,17 @@ public class RolesService {
 
         long totalActivos = usuarioRepository.countByActivoTrue();
         listaRoles.add(
-                new RolCategoriaResponseDto(1L, "👥", "Todos los usuarios", "todos", totalActivos, Boolean.TRUE));
+                new RolCategoriaResponseDto(0L, "👥", "Todos los usuarios", "todos", totalActivos, Boolean.TRUE));
 
         Map<Long, Long> cantidadesPorRol = new HashMap<>();
         for (var conteo : usuarioRepository.countActivosByRol()) {
             cantidadesPorRol.put(conteo.getRolId(), conteo.getTotal());
         }
 
-        long siguienteId = 2L;
         List<Rol> roles = rolRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         for (Rol rol : roles) {
             listaRoles.add(new RolCategoriaResponseDto(
-                    siguienteId++,
+                    rol.getId(),
                     rol.getIcon(),
                     rol.getNombreMostrar(),
                     rol.getNombreRol(),
