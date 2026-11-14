@@ -1,4 +1,11 @@
--- 1. Tabla Roles
+-- 1. Tabla Estados de Usuario
+CREATE TABLE estados_usuario (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(255)
+);
+
+-- 2. Tabla Roles
 CREATE TABLE roles (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre_rol VARCHAR(50) NOT NULL,
@@ -7,7 +14,7 @@ CREATE TABLE roles (
     descripcion VARCHAR(255)
 );
 
--- 2. Tabla Usuarios
+-- 3. Tabla Usuarios
 CREATE TABLE usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
@@ -18,8 +25,9 @@ CREATE TABLE usuarios (
     telefono_celular VARCHAR(20),
     fecha_nacimiento_usuario DATE NOT NULL,
     rol_id BIGINT NOT NULL,
-    activo BOOLEAN NOT NULL,
+    estado_id BIGINT NOT NULL,
     fecha_creacion_usuario DATETIME NOT NULL,
     fecha_actualizacion_usuario DATETIME,
-    CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id) REFERENCES roles(id)
+    CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id) REFERENCES roles(id),
+    CONSTRAINT fk_usuario_estado FOREIGN KEY (estado_id) REFERENCES estados_usuario(id)
 );
