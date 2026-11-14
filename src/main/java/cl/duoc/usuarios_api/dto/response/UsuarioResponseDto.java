@@ -20,6 +20,7 @@ public class UsuarioResponseDto {
     private String apellido;
     private String nombreCompleto;
     private String rut;
+    private String dv;
     private LocalDate fechaNacimiento;
     private String email;
     private int edad;

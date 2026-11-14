@@ -50,7 +50,8 @@ public class UsuarioService {
         usuarioResponse.setNombre(usuarioModel.getNombre());
         usuarioResponse.setApellido(usuarioModel.getApellido());
         usuarioResponse.setNombreCompleto(usuarioModel.getNombre() + " " + usuarioModel.getApellido());
-        usuarioResponse.setRut(usuarioModel.getRut() + "-" + usuarioModel.getDv());
+        usuarioResponse.setRut(usuarioModel.getRut());
+        usuarioResponse.setDv(usuarioModel.getDv());
         usuarioResponse.setEdad(edadConfigurada);
         usuarioResponse.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioResponse.setEmail(usuarioModel.getEmail());
