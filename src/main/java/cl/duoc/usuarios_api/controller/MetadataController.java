@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@Tag(name = "Metadata", description = "Metadatos de configuraci&oacute;n de la interfaz de usuarios.")
+@Tag(name = "Metadata", description = "Metadatos de configuración de la interfaz de usuarios.")
 public class MetadataController {
 
     private final MetadataService metadataService;
@@ -27,9 +27,8 @@ public class MetadataController {
     @GetMapping("/metadata")
     @Operation(
             summary = "Obtener metadata de usuarios",
-            description =
-                    "Retorna la configuraci&oacute;n de metadata (entidad, categor&iacute;a, estados, columnas, etc.) "
-                            + "esperada por el frontend para renderizar el listado de usuarios.")
+            description = "Retorna la configuración de metadata (entidad, categoría, estados, columnas, etc.) "
+                    + "esperada por el frontend para renderizar el listado de usuarios.")
     public ResponseEntity<MetadataDto> obtenerMetadata() {
         return ResponseEntity.ok(metadataService.obtenerMetadata());
     }
