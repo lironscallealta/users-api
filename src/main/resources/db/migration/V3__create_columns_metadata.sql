@@ -44,5 +44,6 @@ INSERT INTO columns_metadata (
 ('usuarios', 'telefono_celular', 'telefonoCelular', 'Teléfono', 'string', 7, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
 ('usuarios', 'fecha_nacimiento_usuario', 'fechaNacimiento', 'Fecha de nacimiento', 'date', 8, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
 ('usuarios', 'rol_id', 'rol', 'Rol', 'string', 9, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE),
-('usuarios', 'estado_id', 'estado', 'Estado', 'string', 10, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
-('usuarios', 'ultimo_login', 'ultimoLogin', 'Último ingreso', 'timestamp', 11, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE);
+('usuarios', 'departamento', 'departamento', 'Departamento', 'string', 10, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE),
+('usuarios', 'estado_id', 'estado', 'Estado', 'string', 11, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
+('usuarios', 'ultimo_login', 'ultimoLogin', 'Último ingreso', 'timestamp', 12, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE);

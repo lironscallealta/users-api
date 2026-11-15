@@ -23,6 +23,7 @@ CREATE TABLE usuarios (
     dv VARCHAR(1),
     email VARCHAR(50) NOT NULL UNIQUE,
     telefono_celular VARCHAR(20),
+    departamento VARCHAR(50),
     fecha_nacimiento_usuario DATE NULL,
     rol_id BIGINT NOT NULL,
     estado_id BIGINT NOT NULL,
