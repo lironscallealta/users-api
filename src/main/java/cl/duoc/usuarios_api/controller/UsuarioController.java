@@ -54,6 +54,16 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.consultarUsuarioPorEmail(authentication.getName()));
     }
 
+    @PatchMapping("/{id}/login")
+    @Operation(
+            summary = "Actualizar timestamp del último ingreso",
+            description = "Registra la hora actual para indicar un nuevo login del usuario autenticado")
+    public ResponseEntity<Void> registrarIngreso(@Positive @PathVariable Long id, Authentication authentication) {
+        // passing authentication.getName into userEmail, because currently the jwt carries the email
+        usuarioService.registrarIngreso(id, authentication.getName());
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Consultar usuario por ID", description = "Obtiene un usuario por su identificador.")
     public ResponseEntity<Optional<UsuarioResponseDto>> consultarUsuarioId(@PathVariable Long id) {

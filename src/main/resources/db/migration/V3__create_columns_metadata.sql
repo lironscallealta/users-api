@@ -17,8 +17,6 @@ CREATE TABLE columns_metadata (
     CONSTRAINT uk_columns_metadata_table_api_key UNIQUE (table_name, api_key)
 );
 
-ALTER TABLE usuarios ADD COLUMN ultimo_login DATETIME NULL AFTER fecha_actualizacion_usuario;
-
 INSERT INTO columns_metadata (
     table_name,
     column_name,

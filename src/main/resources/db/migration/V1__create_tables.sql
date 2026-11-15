@@ -27,6 +27,7 @@ CREATE TABLE usuarios (
     fecha_nacimiento_usuario DATE NULL,
     rol_id BIGINT NOT NULL,
     estado_id BIGINT NOT NULL,
+    ultimo_login DATETIME NULL,
     fecha_creacion_usuario DATETIME NOT NULL,
     fecha_actualizacion_usuario DATETIME,
     CONSTRAINT fk_usuario_rol FOREIGN KEY (rol_id) REFERENCES roles(id),

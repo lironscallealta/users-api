@@ -63,6 +63,9 @@ public class Usuario {
     @JoinColumn(name = "estado_id", nullable = false)
     private EstadoUsuario estado;
 
+    @Column(name = "ultimo_login")
+    private LocalDateTime ultimoLogin;
+
     @Column(name = "fecha_creacion_usuario", nullable = false)
     private LocalDateTime fechaCreacion;
 

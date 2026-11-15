@@ -147,6 +147,20 @@ public class UsuarioService {
     }
 
     @Transactional
+    public void registrarIngreso(Long id, String userEmail) {
+        Usuario usuarioRequest = usuarioRepository
+                .findByEmail(userEmail)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("No existe usuario con el correo: '" + userEmail + "'"));
+
+        if (!usuarioRequest.getId().equals(id)) {
+            throw new ForbiddenException("Usuario a registrar ingreso no corresponde con el usuario logeado.");
+        }
+
+        usuarioRequest.setUltimoLogin(LocalDateTime.now());
+    }
+
+    @Transactional
     public Optional<UsuarioResponseDto> actualizarUsuario(Long usuarioId, UsuarioRequestDto usuarioRequest) {
 
         Usuario usuarioModel = usuarioRepository
