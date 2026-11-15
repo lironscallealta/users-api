@@ -82,6 +82,12 @@ public class MetadataDto {
         private String key;
         private String label;
         private String type;
+        private Boolean showInCreate;
+        private Boolean showInEdit;
+        private Boolean required;
+
+        @JsonProperty("isReadOnly")
+        private Boolean isReadOnly;
 
         @JsonProperty("isSearchable")
         private Boolean isSearchable;
@@ -89,82 +95,9 @@ public class MetadataDto {
         @JsonProperty("isHidden")
         private Boolean isHidden;
 
-        @JsonProperty("isReadOnly")
-        private Boolean isReadOnly;
-
-        private boolean highlight;
+        private Boolean highlight;
 
         @JsonProperty("isState")
         private Boolean isState;
     }
-
-    // Reference:
-    // const metadata = {
-    //   entity: { key: "user", singleLabel: "Usuario", pluralLabel: "Usuarios" },
-    //   category: {
-    //     field: "rol",
-    //     label: "Roles",
-    //     addTitle: "Nuevo Rol",
-    //     icons: ["🐾", "🐕", "🐈", "🐦", "🐹", "📦"],
-    //   },
-    //   delete: {
-    //     nameKey: "nombre",
-    //     detailKey: "email",
-    //     detailLabel: "Correo",
-    //   },
-    //   action: { key: "accion", label: "Acciones" },
-    //   states: [
-    //     {
-    //       id: 0,
-    //       key: "todos",
-    //       label: "Todos los estados",
-    //       description: "Todos los estados",
-    //       isDefault: true,
-    //     },
-    //     { id: 1, key: "activo", label: "Activo", description: "..." },
-    //     { id: 2, key: "inactivo", label: "Inactivo", description: "..." },
-    //     { id: 3, key: "pendiente", label: "En contratación", description: "..." },
-    //   ],
-    //   columns: [
-    //     {
-    //       key: "id",
-    //       label: "ID",
-    //       type: "string",
-    //       isSearchable: false,
-    //       isHidden: true,
-    //       isReadOnly: true,
-    //     },
-    //     {
-    //       key: "nombre",
-    //       label: "Usuario",
-    //       type: "string",
-    //       isSearchable: true,
-    //       highlight: true,
-    //     },
-    //     {
-    //       key: "rol",
-    //       label: "Rol",
-    //       type: "string",
-    //       isSearchable: true,
-    //     },
-    //     {
-    //       key: "email",
-    //       label: "Correo",
-    //       type: "email",
-    //       isSearchable: true,
-    //     },
-    //     {
-    //       key: "ultimoLogin",
-    //       label: "Último ingreso",
-    //       type: "string",
-    //       isReadOnly: true,
-    //     },
-    //     {
-    //       key: "estado",
-    //       label: "Estado",
-    //       type: "string",
-    //       isState: true,
-    //     },
-    //   ],
-    // };
 }
