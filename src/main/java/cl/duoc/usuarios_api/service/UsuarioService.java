@@ -112,13 +112,13 @@ public class UsuarioService {
         return Optional.of(response);
     }
 
-    public Optional<UsuarioResponseDto> consultarUsuarioPorEmail(String email) {
+    public UsuarioResponseDto consultarUsuarioPorEmail(String email) {
 
         Usuario usuario = usuarioRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("no se encuentra usuario con email: " + email));
         UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
-        return Optional.of(response);
+        return response;
     }
 
     public List<UsuarioResponseDto> consultarUsuariosIds(List<Long> UsuariosId) {
