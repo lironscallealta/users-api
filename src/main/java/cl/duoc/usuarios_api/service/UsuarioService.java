@@ -54,6 +54,7 @@ public class UsuarioService {
         usuarioResponse.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
+        usuarioResponse.setDepartamento(usuarioModel.getDepartamento());
         usuarioResponse.setRol(usuarioModel.getRol().getNombreRol());
         usuarioResponse.setEstado(usuarioModel.getEstado().getNombre());
 
@@ -90,6 +91,7 @@ public class UsuarioService {
         usuarioModel.setDv(usuarioRequest.getDv());
         usuarioModel.setEmail(usuarioRequest.getEmail());
         usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
+        usuarioModel.setDepartamento(usuarioRequest.getDepartamento());
         usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         usuarioModel.setRol(rol);
         usuarioModel.setEstado(estado);
@@ -165,6 +167,7 @@ public class UsuarioService {
         usuarioModel.setDv(usuarioRequest.getDv());
         usuarioModel.setEmail(usuarioRequest.getEmail());
         usuarioModel.setTelefonoCelular(usuarioRequest.getTelefonoCelular());
+        usuarioModel.setDepartamento(usuarioRequest.getDepartamento());
         usuarioModel.setFechaNacimiento(usuarioRequest.getFechaNacimiento());
         usuarioModel.setRol(rolModel);
         usuarioModel.setEstado(estadoModel);

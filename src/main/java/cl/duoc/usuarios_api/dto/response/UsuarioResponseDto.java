@@ -25,6 +25,7 @@ public class UsuarioResponseDto {
     private String email;
     private Integer edad;
     private String telefonoCelular;
+    private String departamento;
     private String rol;
     private String estado;
 }

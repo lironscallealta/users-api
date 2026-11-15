@@ -49,6 +49,9 @@ public class Usuario {
     @Column(length = 20)
     private String telefonoCelular;
 
+    @Column(length = 50)
+    private String departamento;
+
     @Column(name = "fecha_nacimiento_usuario")
     private LocalDate fechaNacimiento;
 

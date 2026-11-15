@@ -42,6 +42,9 @@ public class UsuarioRequestDto {
     @Size(min = 7, max = 15)
     private String telefonoCelular;
 
+    @Size(max = 50)
+    private String departamento;
+
     @Past
     private LocalDate fechaNacimiento;
 
