@@ -11,7 +11,7 @@ INSERT INTO roles (nombre_rol, nombre_mostrar, icon, descripcion) VALUES
 ('Cliente', 'Clientes', '👤', 'Acceso al portal personal para gestionar el perfil de sus mascotas, revisar historial de compras, recetas y reservar citas.');
 
 INSERT INTO usuarios (nombre, apellido, rut, dv, email, telefono_celular, departamento, fecha_nacimiento_usuario, rol_id, estado_id, fecha_creacion_usuario) VALUES
-('Alan', 'Brito', '15342123', '1', 'alanbrito@duocuc.cl', '+56912345678', 'IT', '1980-01-01', 1, 1, ),
+('Alan', 'Brito', '15342123', '1', 'alanbrito@duocuc.cl', '+56912345678', 'IT', '1980-01-01', 1, 1, CURRENT_TIMESTAMP),
 ('Susana', 'Oria', '16453234', 'K', 'susanaoria@duocuc.cl', '+56987654321', NULL, '1985-05-15', 5, 1, CURRENT_TIMESTAMP),
 ('Roberto', 'Diaz', '17564345', '9', 'roberto.empleado@ejemplo.com', '+56911223344', 'Ventas', '1990-10-20', 3, 1, CURRENT_TIMESTAMP),
 ('Camila', 'Silva', '18675456', '7', 'camila.veterinario@ejemplo.com', '+56955667788', 'Operaciones', '1988-12-10', 4, 1, CURRENT_TIMESTAMP),
