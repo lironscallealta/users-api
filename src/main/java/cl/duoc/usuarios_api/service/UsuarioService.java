@@ -39,9 +39,11 @@ public class UsuarioService {
 
     private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
 
-        // La forma que encontre para sacar años, lo dejo configurado
-        int edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now())
-                .getYears();
+        Integer edadConfigurada = null;
+        if (usuarioModel.getFechaNacimiento() != null) {
+            edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now())
+                    .getYears();
+        }
 
         UsuarioResponseDto usuarioResponse = new UsuarioResponseDto();
         RolResponseDto rolResponse = new RolResponseDto();

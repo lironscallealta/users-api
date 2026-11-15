@@ -23,7 +23,7 @@ public class UsuarioResponseDto {
     private String dv;
     private LocalDate fechaNacimiento;
     private String email;
-    private int edad;
+    private Integer edad;
     private String telefonoCelular;
     private RolResponseDto rol;
     private String estado;

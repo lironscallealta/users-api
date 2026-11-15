@@ -49,7 +49,7 @@ public class Usuario {
     @Column(length = 20)
     private String telefonoCelular;
 
-    @Column(name = "fecha_nacimiento_usuario", nullable = false)
+    @Column(name = "fecha_nacimiento_usuario")
     private LocalDate fechaNacimiento;
 
     @ManyToOne
