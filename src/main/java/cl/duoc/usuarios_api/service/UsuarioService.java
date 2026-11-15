@@ -9,6 +9,7 @@ package cl.duoc.usuarios_api.service;
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
 import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
 import cl.duoc.usuarios_api.exception.BadRequestException;
+import cl.duoc.usuarios_api.exception.ForbiddenException;
 import cl.duoc.usuarios_api.exception.ResourceNotFoundException;
 import cl.duoc.usuarios_api.model.EstadoUsuario;
 import cl.duoc.usuarios_api.model.Rol;

@@ -66,6 +66,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<DtoApiError> handleForbidden(ForbiddenException ex, HttpServletRequest request) {
+
+        DtoApiError error = DtoApiError.builder()
+                .timestamp(LocalDate.now())
+                .status(HttpStatus.FORBIDDEN.value())
+                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .claseException("ForbiddenException.class")
+                .build();
+
+        log.error("se registra error forbidden", ex);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<DtoApiError> handleRuntime(RuntimeException ex, HttpServletRequest request) {
 
