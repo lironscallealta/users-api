@@ -8,10 +8,11 @@ package cl.duoc.usuarios_api.service;
 
 import cl.duoc.usuarios_api.dto.response.MetadataDto;
 import cl.duoc.usuarios_api.model.ColumnMetadata;
+import cl.duoc.usuarios_api.model.EntityMetadata;
 import cl.duoc.usuarios_api.model.EstadoUsuario;
 import cl.duoc.usuarios_api.repository.ColumnMetadataRepository;
+import cl.duoc.usuarios_api.repository.EntityMetadataRepository;
 import cl.duoc.usuarios_api.repository.EstadoUsuarioRepository;
-import cl.duoc.usuarios_api.repository.RolRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,55 +28,59 @@ public class MetadataService {
 
     private static final String TABLA_USUARIOS = "usuarios";
 
-    private final RolRepository rolRepository;
+    private final EntityMetadataRepository entityMetadataRepository;
     private final EstadoUsuarioRepository estadoUsuarioRepository;
     private final ColumnMetadataRepository columnMetadataRepository;
 
     /**
      * Obtiene el metadata de configuración de la interfaz de usuarios.
      *
-     * <p>Los valores que se pueden extraer de la base de datos se toman de los repositorios y, aquello que no pueda
-     * extraerse (etiquetas de entidad, categoría, acciones, etc.), se obtiene de la referencia estática definida en
-     * {@link MetadataDto}.
+     * <p>La configuración de entidad, columnas y estados se obtiene desde la base de datos.
      */
     @Transactional(readOnly = true)
     public MetadataDto obtenerMetadata() {
+        EntityMetadata entityMetadata = obtenerEntityMetadata();
         MetadataDto metadata = new MetadataDto();
 
-        metadata.setEntity(obtenerEntity());
-        metadata.setCategory(obtenerCategory());
-        metadata.setDelete(obtenerDelete());
-        metadata.setAction(obtenerAction());
+        metadata.setEntity(obtenerEntity(entityMetadata));
+        metadata.setCategory(obtenerCategory(entityMetadata));
+        metadata.setDelete(obtenerDelete(entityMetadata));
+        metadata.setAction(obtenerAction(entityMetadata));
         metadata.setStates(obtenerStates());
         metadata.setColumns(obtenerColumns());
 
         return metadata;
     }
 
-    private MetadataDto.EntityMetadata obtenerEntity() {
-        return new MetadataDto.EntityMetadata("user", "Usuario", "Usuarios");
+    private EntityMetadata obtenerEntityMetadata() {
+        return entityMetadataRepository
+                .findByTableName(TABLA_USUARIOS)
+                .orElseThrow(
+                        () -> new IllegalStateException("No hay metadata de entidad para la tabla " + TABLA_USUARIOS));
     }
 
-    private MetadataDto.CategoryMetadata obtenerCategory() {
-        String field = "rol";
-        try {
-            boolean existenRoles = rolRepository.count() > 0;
-            if (!existenRoles) {
-                log.warn("No hay roles registrados en BD; se usa el valor de referencia para category.field");
-            }
-        } catch (Exception ex) {
-            log.warn("No se pudo extraer category de BD; se usa referencia. {}", ex.getMessage());
-        }
+    private MetadataDto.EntityMetadata obtenerEntity(EntityMetadata entityMetadata) {
+        return new MetadataDto.EntityMetadata(
+                entityMetadata.getEntityKey(), entityMetadata.getSingleLabel(), entityMetadata.getPluralLabel());
+    }
+
+    private MetadataDto.CategoryMetadata obtenerCategory(EntityMetadata entityMetadata) {
         return new MetadataDto.CategoryMetadata(
-                field, "Roles", "Nuevo Rol", List.of("🐾", "🐕", "🐈", "🐦", "🐹", "📦"));
+                entityMetadata.getCategoryField(),
+                entityMetadata.getCategoryLabel(),
+                entityMetadata.getCategoryAddTitle(),
+                entityMetadata.getCategoryIcons());
     }
 
-    private MetadataDto.DeleteMetadata obtenerDelete() {
-        return new MetadataDto.DeleteMetadata("nombre", "email", "Correo");
+    private MetadataDto.DeleteMetadata obtenerDelete(EntityMetadata entityMetadata) {
+        return new MetadataDto.DeleteMetadata(
+                entityMetadata.getDeleteNameKey(),
+                entityMetadata.getDeleteDetailKey(),
+                entityMetadata.getDeleteDetailLabel());
     }
 
-    private MetadataDto.ActionMetadata obtenerAction() {
-        return new MetadataDto.ActionMetadata("accion", "Acciones");
+    private MetadataDto.ActionMetadata obtenerAction(EntityMetadata entityMetadata) {
+        return new MetadataDto.ActionMetadata(entityMetadata.getActionKey(), entityMetadata.getActionLabel());
     }
 
     private List<MetadataDto.StateMetadata> obtenerStates() {
