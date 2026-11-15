@@ -7,7 +7,6 @@
 package cl.duoc.usuarios_api.service;
 
 import cl.duoc.usuarios_api.dto.request.UsuarioRequestDto;
-import cl.duoc.usuarios_api.dto.response.RolResponseDto;
 import cl.duoc.usuarios_api.dto.response.UsuarioResponseDto;
 import cl.duoc.usuarios_api.exception.BadRequestException;
 import cl.duoc.usuarios_api.exception.ResourceNotFoundException;
@@ -38,7 +37,6 @@ public class UsuarioService {
     private final EstadoUsuarioRepository estadoUsuarioRepository;
 
     private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
-
         Integer edadConfigurada = null;
         if (usuarioModel.getFechaNacimiento() != null) {
             edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now())
@@ -46,8 +44,6 @@ public class UsuarioService {
         }
 
         UsuarioResponseDto usuarioResponse = new UsuarioResponseDto();
-        RolResponseDto rolResponse = new RolResponseDto();
-        // usuario
         usuarioResponse.setId(usuarioModel.getId());
         usuarioResponse.setNombre(usuarioModel.getNombre());
         usuarioResponse.setApellido(usuarioModel.getApellido());
@@ -58,12 +54,7 @@ public class UsuarioService {
         usuarioResponse.setFechaNacimiento(usuarioModel.getFechaNacimiento());
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
-        // setando rol
-        rolResponse.setId(usuarioModel.getRol().getId());
-        rolResponse.setNombreRol(usuarioModel.getRol().getNombreRol());
-        rolResponse.setDescripcion(usuarioModel.getRol().getDescripcion());
-        // Finalizando
-        usuarioResponse.setRol(rolResponse);
+        usuarioResponse.setRol(usuarioModel.getRol().getNombreRol());
         usuarioResponse.setEstado(usuarioModel.getEstado().getNombre());
 
         return usuarioResponse;
