@@ -6,15 +6,20 @@
  */
 package cl.duoc.usuarios_api.dto.response;
 
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Entity
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class RolResponseDto {
-
     private Long id;
     private String nombreRol;
     private String descripcion;
