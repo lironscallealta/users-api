@@ -34,7 +34,10 @@ public class RolesService {
 
     private RolResponseDto mapRolToRolResponse(Rol rol) {
         return RolResponseDto.builder()
+                .id(rol.getId())
                 .nombreRol(rol.getNombreRol())
+                .nombreMostrar(rol.getNombreMostrar())
+                .icon(rol.getIcon())
                 .descripcion(rol.getDescripcion())
                 .build();
     }
