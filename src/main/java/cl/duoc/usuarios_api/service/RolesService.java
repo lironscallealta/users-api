@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -98,7 +97,7 @@ public class RolesService {
     }
 
     @Transactional
-    public Optional<RolResponseDto> actualizarRol(Long rolId, RolRequestDto rolRequest) {
+    public RolResponseDto actualizarRol(Long rolId, RolRequestDto rolRequest) {
 
         Rol rolModel = rolRepository
                 .findById(rolId)
@@ -109,8 +108,8 @@ public class RolesService {
         rolModel.setIcon(rolRequest.getIcon());
         rolModel.setDescripcion(rolRequest.getDescripcion());
 
-        RolResponseDto response = mapRolToRolResponse(rolModel);
-        return Optional.of(response);
+        Rol rolGuardado = rolRepository.save(rolModel);
+        return mapRolToRolResponse(rolGuardado);
     }
 
     @Transactional
