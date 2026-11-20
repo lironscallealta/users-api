@@ -37,7 +37,7 @@ public class UsuarioService {
     private final RolRepository rolRepository;
     private final EstadoUsuarioRepository estadoUsuarioRepository;
 
-    private UsuarioResponseDto mapToUsuarioToUsuarioResponse(Usuario usuarioModel) {
+    private UsuarioResponseDto mapUsuarioToUsuarioResponse(Usuario usuarioModel) {
         Integer edadConfigurada = null;
         if (usuarioModel.getFechaNacimiento() != null) {
             edadConfigurada = Period.between(usuarioModel.getFechaNacimiento(), LocalDate.now())
@@ -100,7 +100,7 @@ public class UsuarioService {
         usuarioModel.setFechaCreacion(LocalDateTime.now());
 
         Usuario usuarioGuardado = usuarioRepository.save(usuarioModel);
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioGuardado);
+        UsuarioResponseDto response = mapUsuarioToUsuarioResponse(usuarioGuardado);
 
         return response;
     }
@@ -110,7 +110,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository
                 .findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("no se encuentra usuario con id: " + usuarioId));
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
+        UsuarioResponseDto response = mapUsuarioToUsuarioResponse(usuario);
         return Optional.of(response);
     }
 
@@ -119,7 +119,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("no se encuentra usuario con email: " + email));
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
+        UsuarioResponseDto response = mapUsuarioToUsuarioResponse(usuario);
         return response;
     }
 
@@ -129,7 +129,7 @@ public class UsuarioService {
         List<Usuario> usuarios = usuarioRepository.findAllById(UsuariosId);
 
         for (Usuario usuario : usuarios) {
-            UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuario);
+            UsuarioResponseDto response = mapUsuarioToUsuarioResponse(usuario);
             listaResponseIds.add(response);
         }
         return listaResponseIds;
@@ -142,7 +142,7 @@ public class UsuarioService {
 
         for (Usuario usuario : usuarios) {
 
-            listaUsuarios.add(mapToUsuarioToUsuarioResponse(usuario));
+            listaUsuarios.add(mapUsuarioToUsuarioResponse(usuario));
         }
 
         return listaUsuarios;
@@ -188,7 +188,7 @@ public class UsuarioService {
         usuarioModel.setRol(rolModel);
         usuarioModel.setEstado(estadoModel);
         usuarioModel.setFechaActualizacion(LocalDateTime.now());
-        UsuarioResponseDto response = mapToUsuarioToUsuarioResponse(usuarioModel);
+        UsuarioResponseDto response = mapUsuarioToUsuarioResponse(usuarioModel);
 
         return Optional.of(response);
     }
