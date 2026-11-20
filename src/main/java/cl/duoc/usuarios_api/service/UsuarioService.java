@@ -58,6 +58,7 @@ public class UsuarioService {
         usuarioResponse.setDepartamento(usuarioModel.getDepartamento());
         usuarioResponse.setRol(usuarioModel.getRol().getNombreRol());
         usuarioResponse.setEstado(usuarioModel.getEstado().getNombre());
+        usuarioResponse.setUltimoLogin(usuarioModel.getUltimoLogin());
 
         return usuarioResponse;
     }
