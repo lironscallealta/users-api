@@ -27,7 +27,7 @@ public class UsuarioResponseDto {
     private Integer edad;
     private String telefonoCelular;
     private String departamento;
-    private String rol;
-    private String estado;
+    private Long rolId;
+    private Long estadoId;
     private LocalDateTime ultimoLogin;
 }

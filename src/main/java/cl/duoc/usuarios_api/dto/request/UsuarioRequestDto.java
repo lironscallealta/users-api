@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -49,10 +50,12 @@ public class UsuarioRequestDto {
     private LocalDate fechaNacimiento;
 
     @NotNull
-    private Long rol;
+    @Positive
+    private Long rolId;
 
-    @NotBlank
-    private String estado;
+    @NotNull
+    @Positive
+    private Long estadoId;
 }
 
 /*

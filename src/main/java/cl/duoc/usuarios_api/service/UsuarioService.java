@@ -56,8 +56,8 @@ public class UsuarioService {
         usuarioResponse.setEmail(usuarioModel.getEmail());
         usuarioResponse.setTelefonoCelular(usuarioModel.getTelefonoCelular());
         usuarioResponse.setDepartamento(usuarioModel.getDepartamento());
-        usuarioResponse.setRol(usuarioModel.getRol().getNombreRol());
-        usuarioResponse.setEstado(usuarioModel.getEstado().getNombre());
+        usuarioResponse.setRolId(usuarioModel.getRol().getId());
+        usuarioResponse.setEstadoId(usuarioModel.getEstado().getId());
         usuarioResponse.setUltimoLogin(usuarioModel.getUltimoLogin());
 
         return usuarioResponse;
@@ -79,13 +79,13 @@ public class UsuarioService {
 
         Usuario usuarioModel = new Usuario();
         Rol rol = rolRepository
-                .findById(usuarioRequest.getRol())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
+                .findById(usuarioRequest.getRolId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRolId() + " no existe"));
         EstadoUsuario estado = estadoUsuarioRepository
-                .findByNombre(usuarioRequest.getEstado())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("El estado " + usuarioRequest.getEstado() + " no existe"));
+                .findById(usuarioRequest.getEstadoId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "El estado con ID " + usuarioRequest.getEstadoId() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
@@ -169,13 +169,13 @@ public class UsuarioService {
                 .findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("no existe usuario con id:  " + usuarioId));
         Rol rolModel = rolRepository
-                .findById(usuarioRequest.getRol())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRol() + " no existe"));
+                .findById(usuarioRequest.getRolId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("El rol con ID " + usuarioRequest.getRolId() + " no existe"));
         EstadoUsuario estadoModel = estadoUsuarioRepository
-                .findByNombre(usuarioRequest.getEstado())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("El estado " + usuarioRequest.getEstado() + " no existe"));
+                .findById(usuarioRequest.getEstadoId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "El estado con ID " + usuarioRequest.getEstadoId() + " no existe"));
 
         usuarioModel.setNombre(usuarioRequest.getNombre());
         usuarioModel.setApellido(usuarioRequest.getApellido());
