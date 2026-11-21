@@ -36,7 +36,7 @@ INSERT INTO entities_metadata (
     'user',
     'Usuario',
     'Usuarios',
-    'rol',
+    'rolId',
     'Roles',
     'Nuevo Rol',
     JSON_ARRAY('🐾', '🐕', '🐈', '🐦', '🐹', '📦', '💼', '🏷️', '🚚', '💻'),
