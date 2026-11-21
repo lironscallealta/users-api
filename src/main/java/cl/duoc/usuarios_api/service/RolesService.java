@@ -104,7 +104,8 @@ public class RolesService {
 
         Rol rolModel = rolRepository
                 .findById(rolId)
-                .orElseThrow(() -> new ResourceNotFoundException("El rol con ID " + rolId + " no existe"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "El rol con ID " + rolId + " ('" + rolRequest.getNombreRol() + "') no existe"));
 
         rolModel.setNombreRol(rolRequest.getNombreRol());
         rolModel.setNombreMostrar(rolRequest.getNombreMostrar());
