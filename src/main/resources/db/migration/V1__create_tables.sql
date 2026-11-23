@@ -2,6 +2,7 @@
 CREATE TABLE estados_usuario (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
+    label VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255)
 );
 
