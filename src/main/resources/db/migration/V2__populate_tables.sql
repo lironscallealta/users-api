@@ -1,7 +1,7 @@
-INSERT INTO estados_usuario (nombre, descripcion) VALUES
-('activo', 'Usuario habilitado para ingresar y operar en el sistema.'),
-('inactivo', 'Usuario deshabilitado sin acceso al sistema.'),
-('pendiente', 'Usuario en proceso de contratación, aún sin acceso.');
+INSERT INTO estados_usuario (nombre, label, descripcion) VALUES
+('activo', 'Activo', 'Usuario habilitado para ingresar y operar en el sistema.'),
+('inactivo', 'Inactivo', 'Usuario deshabilitado sin acceso al sistema.'),
+('pendiente', 'En contratación', 'Usuario en proceso de contratación, aún sin acceso.');
 
 INSERT INTO roles (nombre_rol, nombre_mostrar, icon, descripcion) VALUES
 ('Administrador', 'Administradores', '🐕', 'Acceso total al sistema, gestión de usuarios, permisos, configuraciones globales y auditoría de todos los módulos.'),

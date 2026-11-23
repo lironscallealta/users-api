@@ -30,6 +30,9 @@ public class EstadoUsuario {
     @Column(nullable = false, unique = true, length = 50)
     private String nombre;
 
+    @Column(nullable = false, length = 100)
+    private String label;
+
     @Column(length = 255)
     private String descripcion;
 }

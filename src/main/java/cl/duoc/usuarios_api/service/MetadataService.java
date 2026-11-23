@@ -90,23 +90,10 @@ public class MetadataService {
         List<EstadoUsuario> estados = estadoUsuarioRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         for (EstadoUsuario estado : estados) {
             states.add(new MetadataDto.StateMetadata(
-                    estado.getId(),
-                    estado.getNombre(),
-                    obtenerLabelEstado(estado.getNombre()),
-                    estado.getDescripcion(),
-                    null));
+                    estado.getId(), estado.getNombre(), estado.getLabel(), estado.getDescripcion(), null));
         }
 
         return states;
-    }
-
-    private String obtenerLabelEstado(String nombre) {
-        return switch (nombre) {
-            case "activo" -> "Activo";
-            case "inactivo" -> "Inactivo";
-            case "pendiente" -> "En contratación";
-            default -> nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-        };
     }
 
     private List<MetadataDto.ColumnMetadata> obtenerColumns() {
