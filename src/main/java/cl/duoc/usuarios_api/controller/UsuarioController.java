@@ -12,7 +12,6 @@ import cl.duoc.usuarios_api.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,17 +49,10 @@ public class UsuarioController {
             summary = "Consultar usuario autenticado",
             description = "Obtiene el usuario correspondiente al email del token JWT.")
     public ResponseEntity<UsuarioResponseDto> consultarUsuarioActual(Authentication authentication) {
-        return ResponseEntity.ok(usuarioService.consultarUsuarioPorEmail(authentication.getName()));
-    }
-
-    @PatchMapping("/{id}/login")
-    @Operation(
-            summary = "Actualizar timestamp del último ingreso",
-            description = "Registra la hora actual para indicar un nuevo login del usuario autenticado")
-    public ResponseEntity<Void> registrarIngreso(@Positive @PathVariable Long id, Authentication authentication) {
-        // passing authentication.getName into userEmail, because currently the jwt carries the email
-        usuarioService.registrarIngreso(id, authentication.getName());
-        return ResponseEntity.noContent().build();
+        String email = authentication.getName();
+        UsuarioResponseDto user = usuarioService.consultarUsuarioPorEmail(email);
+        usuarioService.registrarIngreso(user.getId(), email);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/{id}")
